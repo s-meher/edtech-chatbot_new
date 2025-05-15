@@ -82,8 +82,3 @@ button:hover {
   background: #0056b3;
 }
 
-#chat-box {
-  display: flex;
-  flex-direction: column;
-}
-

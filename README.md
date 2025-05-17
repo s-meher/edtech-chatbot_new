@@ -12,9 +12,13 @@ An interactive educational chatbot built with Flask and JavaScript. This project
 
 ## Project Structure
 edtech-chatbot_new/
+
 ├── app.py              # Flask backend logic
+
 ├── index.html          # Frontend interface
+
 ├── script.js           # Handles user interaction
+
 ├── style.css          
 
 ## Installation

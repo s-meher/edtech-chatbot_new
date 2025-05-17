@@ -15,7 +15,7 @@ body {
   background: #ffffff;
   padding: 20px;
   width: 100%;
-  max-width: 420px;
+  max-width: 450px;
   border-radius: 16px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
@@ -40,8 +40,8 @@ h2 {
   margin: 8px 0;
 }
 
-#chat-box strong {
-  display: block;
+#chat-box p strong {
+  display: inline;
 }
 
 #chat-box p:nth-child(odd) {
@@ -56,16 +56,31 @@ h2 {
   padding: 8px;
   border-radius: 10px;
   max-width: 80%;
-  align-self: flex-end;
+  margin-left: auto;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
 }
 
 input[type="text"] {
-  width: 70%;
+  width: 65%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  margin-right: 8px;
   font-size: 14px;
+}
+
+select {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-weight: 500;
 }
 
 button {
@@ -76,6 +91,7 @@ button {
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
+  transition: background 0.2s ease;
 }
 
 button:hover {

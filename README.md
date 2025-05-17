@@ -1,8 +1,8 @@
-# 🎓 EdTech Chatbot
+# EdTech Chatbot
 
 An interactive educational chatbot built with Flask and JavaScript. This project demonstrates both rule-based and predictive chatbot models to help students get answers and engage in academic conversations.
 
-## 🚀 Features
+## Features
 
 - Rule-based chatbot using NLTK
 - Predictive chatbot using Keras Sequential model
@@ -11,7 +11,7 @@ An interactive educational chatbot built with Flask and JavaScript. This project
 - Easy to modify and expand
 
 
-## 🛠️ Installation
+## Installation
 
 ### Requirements
 

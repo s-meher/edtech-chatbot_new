@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, render_template, send_from_directory
 from flask_cors import CORS
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -7,23 +7,25 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 
+# Download required NLTK data
 nltk.download("punkt")
 nltk.download("stopwords")
 
-app = Flask(__name__, static_folder="static")
+# Flask app
+app = Flask(__name__, static_folder="static", template_folder="templates")
 CORS(app)
 
-# Load CSV and vectorize
+# Load FAQ CSV
 df = pd.read_csv("college_faq.csv")
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(df["question"])
 
+# ML-based chatbot
 @app.route("/chat", methods=["POST"])
 def chat():
     user_msg = request.json.get("message", "").lower()
     user_vec = vectorizer.transform([user_msg])
     sims = cosine_similarity(user_vec, X)
-
     best_idx = sims.argmax()
     if sims[0, best_idx] > 0.3:
         reply = df["answer"].iloc[best_idx]
@@ -31,7 +33,7 @@ def chat():
         reply = "Sorry, I don't know that one."
     return jsonify({"response": reply})
 
-# Rule-based NLTK chatbot
+# Rule-based chatbot
 faq_rules = {
     "greet": ["hi", "hello", "hey"],
     "admission": ["admission", "apply", "register", "enroll"],
@@ -63,11 +65,12 @@ def chat_nltk():
     reply = get_intent(user_msg)
     return jsonify({"response": reply})
 
-# Serve frontend
+# Serve index.html
 @app.route("/")
-def serve_home():
-    return send_from_directory(app.static_folder, "index.html")
+def home():
+    return render_template("index.html")
 
-@app.route("/<path:path>")
-def serve_static_file(path):
-    return send_from_directory(app.static_folder, path)
+# Optional: serve static files
+@app.route("/static/<path:path>")
+def static_files(path):
+    return send_from_directory("static", path)

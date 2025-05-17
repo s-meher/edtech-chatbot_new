@@ -1,1 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EdTechBot Chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <h2>🎓 Chat with EdTechBot</h2>
 
+    <div class="controls">
+      <label for="model-select">Model:</label>
+      <select id="model-select">
+        <option value="/chat">ML Model</option>
+        <option value="/chat-nltk">NLTK Rule-Based</option>
+      </select>
+    </div>
+
+    <div id="chat-box"></div>
+
+    <div class="controls">
+      <input id="user-input" type="text" placeholder="Ask me something..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

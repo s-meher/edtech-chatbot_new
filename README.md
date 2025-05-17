@@ -31,13 +31,23 @@ edtech-chatbot_new/
 ### Steps
 
 1. Clone this repo:
-   ```bash
-   git clone https://github.com/s-meher/edtech-chatbot_new.git
-   cd edtech-chatbot_new
+
+```bash
+git clone https://github.com/s-meher/edtech-chatbot_new.git
+cd edtech-chatbot_new
+```
+
 2. Install the required libraries:
-   pip install -r requirements.txt
+
+```bash
+pip install -r requirements.txt
+```
+
 3. Run the app:
-   python app.py
+
+```bash
+python app.py
+```
 
 
 ### How it Works

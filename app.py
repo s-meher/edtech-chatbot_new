@@ -6,15 +6,15 @@ from sklearn.metrics.pairwise import cosine_similarity
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+
 nltk.download("punkt")
 nltk.download("stopwords")
-
 
 app = Flask(__name__, static_folder="static")
 CORS(app)
 
 # Load CSV and vectorize
-df = pd.read_csv("/home/smeher/college_faq.csv")
+df = pd.read_csv("college_faq.csv")
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(df["question"])
 
@@ -31,15 +31,7 @@ def chat():
         reply = "Sorry, I don't know that one."
     return jsonify({"response": reply})
 
-# Serve frontend files from static folder
-@app.route("/")
-def serve_home():
-    return send_from_directory(app.static_folder, "index.html")
-
-@app.route("/<path:path>")
-def serve_static_file(path):
-    return send_from_directory(app.static_folder, path)
-
+# Rule-based NLTK chatbot
 faq_rules = {
     "greet": ["hi", "hello", "hey"],
     "admission": ["admission", "apply", "register", "enroll"],
@@ -56,17 +48,14 @@ faq_answers = {
     "goodbye": "Goodbye! Feel free to reach out if you have more questions."
 }
 
-
 def get_intent(user_msg):
     words = word_tokenize(user_msg.lower())
     filtered = [w for w in words if w not in stopwords.words("english")]
-
     for intent, keywords in faq_rules.items():
         for keyword in keywords:
             if keyword in filtered:
                 return faq_answers[intent]
     return "I'm sorry, I didn’t understand that. Can you rephrase?"
-
 
 @app.route("/chat-nltk", methods=["POST"])
 def chat_nltk():
@@ -74,3 +63,11 @@ def chat_nltk():
     reply = get_intent(user_msg)
     return jsonify({"response": reply})
 
+# Serve frontend
+@app.route("/")
+def serve_home():
+    return send_from_directory(app.static_folder, "index.html")
+
+@app.route("/<path:path>")
+def serve_static_file(path):
+    return send_from_directory(app.static_folder, path)
